@@ -29,7 +29,7 @@ var bio = {
         "location": "St Louis, MO",
         "email": "codingvirtual@gmail.com"
     },
-    "picUrl": "images/fry.jpg",
+    "picUrl": "images/avatar-xhdpi.jpg",
     "welcomeMessage": "Hi and thank you for reviewing my interactive resume",
     "skills": ["Java", "Android Applications","AngularJS", "mySQL", "JavaScript", "Google App Engine", "Google Cloud Endpoints","PHP", "Git"]
 };
@@ -74,6 +74,7 @@ var education = {
 var token = "%data%"
 $('#header').prepend(HTMLheaderRole.replace(token, bio.role));
 $('#header').prepend(HTMLheaderName.replace(token, bio.name));
+$('#header').append(HTMLbioPic.replace(token, bio.picUrl));
 
 function showContactInfo() {
         $('#topContacts')
