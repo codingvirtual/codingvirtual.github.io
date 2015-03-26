@@ -59,12 +59,12 @@ var education = {
     "schools": [
         {   "name": "Univ. of Illinois - Springfield",
             "years": 2015,
-            "city": "Springfield, MO (via Online Program)",
+            "location": "Springfield, IL",
             "majors": ["Computer Science"]
         },
         {   "name": "Univ. of Missouri - St Louis",
             "years": "2011 - 2013",
-            "city": "St Louis, MO",
+            "location": "St Louis, MO",
             "majors": ["Worked towards Computer Science"]
         }
     ],
@@ -133,3 +133,4 @@ showContactInfo();
 showSkills();
 displayWork();
 projects.display();
+$('#mapDiv').append(googleMap);

@@ -119,6 +119,10 @@ a {
   background-color: #484848;
 }
 
+#mapDiv {
+  max-width: 800px;
+}
+
 .flex-box {
   display: -webkit-flex;
   display: flex;
