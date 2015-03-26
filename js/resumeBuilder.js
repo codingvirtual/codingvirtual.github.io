@@ -40,10 +40,22 @@ var bio = {
 var projects = {
     "projects": [
         {
-            "title": "Project 1 - Hello World",
+            "title": "Portfolio Mockup with HTML & CSS",
+            "url": "http://codingvirtual.github.io/Udacity-Project-1",
             "dates": "March 2015",
-            "description": "Portfolio Mockup with HTML & CSS",
+            "description": "Udacity Front-End Developer Nanodegree - Project 1 " +
+            "A relatively basic project designed to teach the user the basics of HTML " +
+            "layout, basic CSS, and the beginnings of responsive web design. Image placeholders " +
+            "were used for the project.",
             "images": ["https://s3.amazonaws.com/accredible_api_evidence_items/previews/6574/large/png?1427313327"]
+        },
+        {
+            "title": "Interactive Resume",
+            "url": "#",
+            "dates": "March 2015",
+            "description": "Front-End Developer Nanodegree - Project 2. An interactive resume built using JavaScript " +
+            " and CSS (the page you are viewing now is the product of that project).",
+            "images": []
         }
     ]
 };
@@ -52,10 +64,19 @@ var work = {
     "jobs": [
         {
             "employer": "AT&T",
-            "title": "Application Sales Executive",
-            "datesWorked": "1998 - present",
+            "title": "Application Sales Executive - Unified Communications",
+            "datesWorked": "2013 - present",
             "location": "St Louis",
-            "description": "Product Specialist supporting Unified Communications"
+            "description": "Product Specialist supporting Unified Communications solutions including hosted Cisco HCS " +
+                "and Microsoft Lync (hosted and prem-based)."
+        },
+        {
+            "employer": "AT&T",
+            "title": "Application Sales Manager - Fixed/Mobile Convergence",
+            "datesWorked": "2012 - 2013",
+            "location": "St Louis",
+            "description": "Managed a team of Application Sales Executives responsible for solution sales of " +
+                "AT&T's suite of fixed/mobile convergence solutions."
         }
     ]
 };
@@ -133,6 +154,9 @@ projects.display = function () {
     if (projects.projects.length > 0) {
         for (var projectEntry in projects.projects) {
             $('#project-list:last').append(HTMLprojectStart);
+            if (projects.projects[projectEntry].url.length > 0) {
+                HTMLprojectTitle = HTMLprojectTitle.replace('#', projects.projects[projectEntry].url);
+            }
             $('.project-entry:last')
                 .append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
                 .append(HTMLprojectDates.replace(token, projects.projects[projectEntry].dates))

@@ -16,25 +16,14 @@
 .project-images > img {
   max-width: 270px;
   max-height: 140px;
-  padding: 0;
-}
-
-.project-bundle {
-  /*
-  display: -webkit-flex;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: flex-start;
-  */
 }
 
 .col-left {
-  width: 35%;
+  width: 20%;
 }
 
 .col-right {
-  width: 55%;
+  width: 70%;
 }
 
 .project-entry > img {
