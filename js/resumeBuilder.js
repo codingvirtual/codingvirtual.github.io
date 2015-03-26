@@ -80,7 +80,7 @@ var education = {
     "onlineCourses": [
         {
             "title": "Intro to JavaScript",
-            "school": "Udacity.com",
+            "provider": "Udacity.com",
             "dates": "2015",
             "url": "https://www.udacity.com/course/ud804"
         }
@@ -120,7 +120,7 @@ work.display = function () {
             $('#workExperience').append(HTMLworkStart);
             var workEmployerTitle = HTMLworkEmployer.replace(token, work.jobs[workEntry].employer);
             workEmployerTitle += HTMLworkTitle.replace(token, work.jobs[workEntry].title);
-            $('.work-entry')
+            $('.work-entry:last')
                 .append(workEmployerTitle)
                 .append(HTMLworkDates.replace(token, work.jobs[workEntry].datesWorked))
                 .append(HTMLworkLocation.replace(token, work.jobs[workEntry].location))
@@ -132,13 +132,14 @@ work.display = function () {
 projects.display = function () {
     if (projects.projects.length > 0) {
         for (var projectEntry in projects.projects) {
-            $('#projects-bundle').append(HTMLprojectStart);
-            $('.project-entry').append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
+            $('#project-list:last').append(HTMLprojectStart);
+            $('.project-entry:last')
+                .append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
                 .append(HTMLprojectDates.replace(token, projects.projects[projectEntry].dates))
                 .append(HTMLprojectDescription.replace(token, projects.projects[projectEntry].description));
             if (projects.projects[projectEntry].images.length > 0) {
                 for (var imageEntry in projects.projects[projectEntry].images) {
-                    $('.project-images').append(HTMLprojectImage.replace(token, projects.projects[projectEntry].images[imageEntry]));
+                    $('.project-images:last').append(HTMLprojectImage.replace(token, projects.projects[projectEntry].images[imageEntry]));
                 }
             }
         }
@@ -149,20 +150,29 @@ education.display = function () {
     if (education.schools.length > 0) {
         for (var school in education.schools) {
             $('#education').append(HTMLschoolStart);
-            $('.education-entry')
+            $('.education-entry:last')
                 .append(HTMLschoolName.replace(token, education.schools[school].name))
                 .append(HTMLschoolDegree.replace(token, education.schools[school].degree))
                 .append(HTMLschoolDates.replace(token, education.schools[school].dates))
                 .append(HTMLschoolLocation.replace(token, education.schools[school].location));
             if (education.schools[school].majors.length > 0) {
                 for (var major in education.schools[school].majors) {
-                    $('.education-entry').append(HTMLschoolMajor.replace(token, education.schools[school].majors[major]));
+                    $('.education-entry:last').append(HTMLschoolMajor.replace(token, education.schools[school].majors[major]));
                 }
             }
         }
     }
     if (education.onlineCourses.length > 0) {
-        console.log("online");
+        $('#education')
+            .append(HTMLonlineClasses)
+            .append(HTMLonlineStart);
+        for (var onlineEntry in education.onlineCourses) {
+            $('.education-entry:last')
+                .append(HTMLonlineTitle.replace(token, education.onlineCourses[onlineEntry].title))
+                .append(HTMLonlineSchool.replace(token, education.onlineCourses[onlineEntry].provider))
+                .append(HTMLonlineDates.replace(token, education.onlineCourses[onlineEntry].dates))
+                .append(HTMLonlineURL.replace(token, education.onlineCourses[onlineEntry].url));
+        }
     }
 }
 
