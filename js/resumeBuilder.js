@@ -36,10 +36,10 @@ var bio = {
 var projects = {
     "projects": [
         {
-            "title": "Project 0 - Hello World",
+            "title": "Project 1 - Hello World",
             "dates": "March 2015",
-            "description": "Class Hello World in HTML & CSS",
-            "images": ["url_goes_here"]
+            "description": "Portfolio Mockup with HTML & CSS",
+            "images": ["codingvirtual.github.io/Udacity-Project-1"]
         }
     ]
 };
