@@ -104,11 +104,21 @@ function displayWork() {
     }
 }
 
+function inName(name) {
+    console.log("name is " + name);
+    var nameTokens = name.trim().split(" ");
+    nameTokens[1] = nameTokens[1].toUpperCase();
+    return nameTokens[0] + ' ' + nameTokens[1];
+}
+$('#main').append(internationalizeButton);
+
+projects.display = function() {
+    for (project in projects) {
+        $()
+    }
+}
+
+
 showContactInfo();
 showSkills();
 displayWork();
-
-$(document).click(function(loc) {
-    logClicks(loc.pageX, loc.pageY);
-})
-
