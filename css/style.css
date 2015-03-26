@@ -72,7 +72,6 @@ h4 {
 }
 
 h2, h3, h4, h5 {
-  padding:10px;
   padding-left: 5%;
   padding-right: 5%;
 }
@@ -84,6 +83,7 @@ h2, h3, h4, h5 {
   color: #999999;
   line-height: 16px;
   float: left;
+  margin-right: 3px;
 }
 
 .location-text {
@@ -92,6 +92,7 @@ h2, h3, h4, h5 {
   color: #999999;
   line-height: 16px;
   float: right;
+  margin-right: 3px;
 
 }
 
@@ -158,10 +159,7 @@ a {
 }
 
 .center-content {
-  padding-top: 2.5%;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-bottom: 2.5%
+  padding: 2.5% 5%;
 }
 
 ul {
@@ -199,6 +197,19 @@ span {
   text-align: center;
 }
 
+
+#map {
+  height: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#mapDiv {
+  height: 400px;
+  width: 100%;
+  padding-bottom: 5%;
+}
+
 @media only screen and (max-width: 1024px) {
   #letsConnect {
     margin-top: 5%;
@@ -221,20 +232,6 @@ span {
   .welcome-message {
     display: none;
   }
-}
-
-#map {
-  display: block;
-  height: 100%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-#mapDiv {
-  height: 400px;
-  width: 100%;
-  max-width: 800px;
-  padding-bottom: 5%;
 }
 
 @media only screen and (min-width: 750px) {
