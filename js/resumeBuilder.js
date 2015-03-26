@@ -30,7 +30,10 @@ var bio = {
     },
     "picUrl": "images/avatar-xhdpi.jpg",
     "welcomeMessage": "Hi and thank you for reviewing my interactive resume",
-    "skills": ["Java", "Android Applications", "AngularJS", "mySQL", "JavaScript", "Google App Engine", "Google Cloud Endpoints", "PHP", "Git"]
+    "skills": {
+        "skills": ["Java", "Android Applications", "AngularJS", "mySQL",
+            "JavaScript", "Google App Engine", "Google Cloud Endpoints", "PHP", "Git"]
+    }
 };
 
 var projects = {
@@ -39,7 +42,7 @@ var projects = {
             "title": "Project 1 - Hello World",
             "dates": "March 2015",
             "description": "Portfolio Mockup with HTML & CSS",
-            "images": ["codingvirtual.github.io/Udacity-Project-1"]
+            "images": ["https://s3.amazonaws.com/accredible_api_evidence_items/previews/6574/large/png?1427313327"]
         }
     ]
 };
@@ -78,28 +81,33 @@ var education = {
 };
 
 var token = "%data%"
-$('#header').prepend(HTMLheaderRole.replace(token, bio.role));
-$('#header').prepend(HTMLheaderName.replace(token, bio.name));
-$('#header').append(HTMLbioPic.replace(token, bio.picUrl));
 
-function showContactInfo() {
+bio.display = function() {
+    $('#header').prepend(HTMLheaderRole.replace(token, bio.role));
+    $('#header').prepend(HTMLheaderName.replace(token, bio.name));
+    $('#header').append(HTMLbioPic.replace(token, bio.picUrl));
+    bio.contacts.display();
+    bio.skills.display();
+}
+
+bio.contacts.display = function () {
     $('#topContacts')
         .append(HTMLtwitter.replace(token, bio.contacts.twitter))
         .append(HTMLemail.replace(token, bio.contacts.email))
         .append(HTMLgithub.replace(token, bio.contacts.github));
 }
 
-function showSkills() {
-    if (bio.skills.length > 0) {
+bio.skills.display = function() {
+    if (bio.skills.skills.length > 0) {
         $('#header').append(HTMLskillsStart);
-        for (var skill in bio.skills) {
-            $('#skills').append(HTMLskills.replace(token, bio.skills[skill]));
+        for (var skill in bio.skills.skills) {
+            $('#skills').append(HTMLskills.replace(token, bio.skills.skills[skill]));
         }
     }
 }
 
-function displayWork() {
-    for (workEntry in work.jobs) {
+work.display = function() {
+    for (var workEntry in work.jobs) {
         $('#workExperience').append(HTMLworkStart);
         var workEmployerTitle = HTMLworkEmployer.replace(token, work.jobs[workEntry].employer);
         workEmployerTitle += HTMLworkTitle.replace(token, work.jobs[workEntry].title);
@@ -109,6 +117,20 @@ function displayWork() {
         $('.work-entry:last').append(HTMLworkDescription.replace(token, work.jobs[workEntry].description));
     }
 }
+
+projects.display = function () {
+    for (var projectEntry in projects.projects) {
+        $('#projects-bundle').append(HTMLprojectStart);
+        $('.project-entry').append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
+        .append(HTMLprojectDates.replace(token, projects.projects[projectEntry].dates))
+        .append(HTMLprojectDescription.replace(token, projects.projects[projectEntry].description));
+        for (var imageEntry in projects.projects[projectEntry].images) {
+            $('.project-images').append(HTMLprojectImage.replace(token, projects.projects[projectEntry].images[imageEntry]));
+        }
+    }
+}
+
+
 function inName(name) {
     var nameTokens = name.trim().split(" ");
     nameTokens[1] = nameTokens[1].toUpperCase();
@@ -116,21 +138,7 @@ function inName(name) {
 }
 $('#main').append(internationalizeButton);
 
-projects.display = function () {
-    for (projectEntry in projects.projects) {
-        $('#projects').append(HTMLprojectStart);
-        $('.project-entry:last').append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
-        .append(HTMLprojectDates.replace(token, projects.projects[projectEntry].dates))
-        .append(HTMLprojectDescription.replace(token, projects.projects[projectEntry].description));
-        for (imageEntry in projects.projects[projectEntry].images) {
-            $('.project-entry:last').append(HTMLprojectImage.replace(token, projects.projects[projectEntry].images[imageEntry]));
-        }
-    }
-}
-
-
-showContactInfo();
-showSkills();
-displayWork();
+bio.display();
+work.display();
 projects.display();
 $('#mapDiv').append(googleMap);
