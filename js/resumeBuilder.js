@@ -115,12 +115,13 @@ bio.display = function () {
         .prepend(HTMLheaderRole.replace(token, bio.role))
         .prepend(HTMLheaderName.replace(token, bio.name))
         .append(HTMLbioPic.replace(token, bio.picUrl));
-    bio.contacts.display();
+    bio.contacts.display('#topContacts');
+    bio.contacts.display('#footerContacts');
     bio.skills.display();
 }
 
-bio.contacts.display = function () {
-    $('#topContacts')
+bio.contacts.display = function (id) {
+    $(id)
         .append(HTMLtwitter.replace(token, bio.contacts.twitter))
         .append(HTMLemail.replace(token, bio.contacts.email))
         .append(HTMLgithub.replace(token, bio.contacts.github));
