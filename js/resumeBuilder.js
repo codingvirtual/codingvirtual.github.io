@@ -29,7 +29,7 @@ var bio = {
         "location": "St Louis, MO",
         "email": "codingvirtual@gmail.com"
     },
-    "picUrl": "images/avatar-xhdpi.jpg",
+    "picUrl": "images/avatar-xhdpi-400_small.jpg",
     "welcomeMessage": "Hi and thank you for reviewing my interactive resume",
     "skills": {
         "skills": ["Java", "Android Applications", "AngularJS", "mySQL",
@@ -47,7 +47,7 @@ var projects = {
             "A relatively basic project designed to teach the user the basics of HTML " +
             "layout, basic CSS, and the beginnings of responsive web design. Image placeholders " +
             "were used for the project.",
-            "images": ["https://s3.amazonaws.com/accredible_api_evidence_items/previews/6574/large/png?1427313327"]
+            "images": ["images/Project1_thumb-400_small.png"]
         },
         {
             "title": "Interactive Resume",
