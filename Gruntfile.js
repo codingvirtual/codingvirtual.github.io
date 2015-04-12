@@ -65,12 +65,29 @@ module.exports = function(grunt) {
           create: ['images']
         }
       }
+    },
+
+    csslint: {
+      strict: {
+        options: {
+          import: 2
+        },
+        src: ['css/*.css']
+      },
+      lax: {
+        options: {
+          import: false
+        },
+        src: ['css/*.css']
+      }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.registerTask('default', ['clean', 'mkdir', 'responsive_images']);
 
 };
