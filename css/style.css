@@ -294,5 +294,10 @@ span {
     #mapDiv {
         padding-bottom: 4%;
     }
+    
+    .project-images > img {
+        display: none;
+    }
+
 
 }
