@@ -22,18 +22,41 @@
 
 var bio = {
     "name": "Greg Palen",
+    "display": function () {
+        $('#header')
+            .prepend(HTMLheaderRole.replace(token, this.role))
+            .prepend(HTMLheaderName.replace(token, this.name))
+            .append(HTMLbioPic.replace(token, this.picUrl));
+        this.contacts.display('#topContacts');
+        this.contacts.display('#footerContacts');
+        this.skills.display();
+    },
     "role": "Web Developer",
     "contacts": {
         "twitter": "@GPalen",
         "github": "codingvirtual",
         "location": "St Louis, MO",
-        "email": "codingvirtual@gmail.com"
+        "email": "codingvirtual@gmail.com",
+        "display": function (id) {
+            $(id)
+                .append(HTMLtwitter.replace(token, this.twitter))
+                .append(HTMLemail.replace(token, this.email))
+                .append(HTMLgithub.replace(token, this.github));
+        }
     },
     "picUrl": "images/avatar-xhdpi-400_small.jpg",
     "welcomeMessage": "Hi and thank you for reviewing my interactive resume",
     "skills": {
         "skills": ["Java", "Android Applications", "AngularJS", "mySQL",
-            "JavaScript", "Google App Engine", "Google Cloud Endpoints", "PHP", "Git"]
+            "JavaScript", "Google App Engine", "Google Cloud Endpoints", "PHP", "Git"],
+        "display": function () {
+            if (bio.skills.skills.length > 0) {
+                $('#header').append(HTMLskillsStart);
+                for (var skill in bio.skills.skills) {
+                    $('#skills').append(HTMLskills.replace(token, bio.skills.skills[skill]));
+                }
+            }
+        }
     }
 };
 
@@ -57,7 +80,26 @@ var projects = {
             " and CSS (the page you are viewing now is the product of that project).",
             "images": []
         }
-    ]
+    ],
+    "display": function () {
+        if (this.projects.length > 0) {
+            for (var projectEntry in this.projects) {
+                $('#project-list:last').append(HTMLprojectStart);
+                if (this.projects[projectEntry].url.length > 0) {
+                    HTMLprojectTitle = HTMLprojectTitle.replace('#', this.projects[projectEntry].url);
+                }
+                $('.project-entry:last')
+                    .append(HTMLprojectTitle.replace(token, this.projects[projectEntry].title))
+                    .append(HTMLprojectDates.replace(token, this.projects[projectEntry].dates))
+                    .append(HTMLprojectDescription.replace(token, this.projects[projectEntry].description));
+                if (this.projects[projectEntry].images.length > 0) {
+                    for (var imageEntry in this.projects[projectEntry].images) {
+                        $('.project-images:last').append(HTMLprojectImage.replace(token, this.projects[projectEntry].images[imageEntry]));
+                    }
+                }
+            }
+        }
+    }
 };
 
 var work = {
@@ -68,7 +110,7 @@ var work = {
             "datesWorked": "2013 - present",
             "location": "St Louis",
             "description": "Product Specialist supporting Unified Communications solutions including hosted Cisco HCS " +
-                "and Microsoft Lync (hosted and prem-based)."
+            "and Microsoft Lync (hosted and prem-based)."
         },
         {
             "employer": "AT&T",
@@ -76,9 +118,23 @@ var work = {
             "datesWorked": "2012 - 2013",
             "location": "St Louis",
             "description": "Managed a team of Application Sales Executives responsible for solution sales of " +
-                "AT&T's suite of fixed/mobile convergence solutions."
+            "AT&T's suite of fixed/mobile convergence solutions."
         }
-    ]
+    ],
+    "display": function () {
+        if (this.jobs.length > 0) {
+            for (var workEntry in this.jobs) {
+                $('#workExperience').append(HTMLworkStart);
+                var workEmployerTitle = HTMLworkEmployer.replace(token, this.jobs[workEntry].employer);
+                workEmployerTitle += HTMLworkTitle.replace(token, this.jobs[workEntry].title);
+                $('.work-entry:last')
+                    .append(workEmployerTitle)
+                    .append(HTMLworkDates.replace(token, this.jobs[workEntry].datesWorked))
+                    .append(HTMLworkLocation.replace(token, this.jobs[workEntry].location))
+                    .append(HTMLworkDescription.replace(token, this.jobs[workEntry].description));
+            }
+        }
+    }
 };
 
 var education = {
@@ -105,107 +161,47 @@ var education = {
             "dates": "2015",
             "url": "https://www.udacity.com/course/ud804"
         }
-    ]
+    ],
+    "display" : function () {
+        if (this.schools.length > 0) {
+            for (var school in this.schools) {
+                $('#education').append(HTMLschoolStart);
+                $('.education-entry:last')
+                    .append(HTMLschoolName.replace(token, this.schools[school].name))
+                    .append(HTMLschoolDegree.replace(token, this.schools[school].degree))
+                    .append(HTMLschoolDates.replace(token, this.schools[school].dates))
+                    .append(HTMLschoolLocation.replace(token, this.schools[school].location));
+                if (this.schools[school].majors.length > 0) {
+                    for (var major in this.schools[school].majors) {
+                        $('.education-entry:last').append(HTMLschoolMajor.replace(token, this.schools[school].majors[major]));
+                    }
+                }
+            }
+        }
+        if (this.onlineCourses.length > 0) {
+            $('#education')
+                .append(HTMLonlineClasses)
+                .append(HTMLonlineStart);
+            for (var onlineEntry in this.onlineCourses) {
+                $('.education-entry:last')
+                    .append(HTMLonlineTitle.replace(token, this.onlineCourses[onlineEntry].title))
+                    .append(HTMLonlineSchool.replace(token, this.onlineCourses[onlineEntry].provider))
+                    .append(HTMLonlineDates.replace(token, this.onlineCourses[onlineEntry].dates))
+                    .append(HTMLonlineURL.replace(token, this.onlineCourses[onlineEntry].url));
+            }
+        }
+    }
 };
 
-var token = "%data%"
+var token = "%data%";
 
-bio.display = function () {
-    $('#header')
-        .prepend(HTMLheaderRole.replace(token, bio.role))
-        .prepend(HTMLheaderName.replace(token, bio.name))
-        .append(HTMLbioPic.replace(token, bio.picUrl));
-    bio.contacts.display('#topContacts');
-    bio.contacts.display('#footerContacts');
-    bio.skills.display();
-}
-
-bio.contacts.display = function (id) {
-    $(id)
-        .append(HTMLtwitter.replace(token, bio.contacts.twitter))
-        .append(HTMLemail.replace(token, bio.contacts.email))
-        .append(HTMLgithub.replace(token, bio.contacts.github));
-}
-
-bio.skills.display = function () {
-    if (bio.skills.skills.length > 0) {
-        $('#header').append(HTMLskillsStart);
-        for (var skill in bio.skills.skills) {
-            $('#skills').append(HTMLskills.replace(token, bio.skills.skills[skill]));
-        }
-    }
-}
-
-work.display = function () {
-    if (work.jobs.length > 0) {
-        for (var workEntry in work.jobs) {
-            $('#workExperience').append(HTMLworkStart);
-            var workEmployerTitle = HTMLworkEmployer.replace(token, work.jobs[workEntry].employer);
-            workEmployerTitle += HTMLworkTitle.replace(token, work.jobs[workEntry].title);
-            $('.work-entry:last')
-                .append(workEmployerTitle)
-                .append(HTMLworkDates.replace(token, work.jobs[workEntry].datesWorked))
-                .append(HTMLworkLocation.replace(token, work.jobs[workEntry].location))
-                .append(HTMLworkDescription.replace(token, work.jobs[workEntry].description));
-        }
-    }
-}
-
-projects.display = function () {
-    if (projects.projects.length > 0) {
-        for (var projectEntry in projects.projects) {
-            $('#project-list:last').append(HTMLprojectStart);
-            if (projects.projects[projectEntry].url.length > 0) {
-                HTMLprojectTitle = HTMLprojectTitle.replace('#', projects.projects[projectEntry].url);
-            }
-            $('.project-entry:last')
-                .append(HTMLprojectTitle.replace(token, projects.projects[projectEntry].title))
-                .append(HTMLprojectDates.replace(token, projects.projects[projectEntry].dates))
-                .append(HTMLprojectDescription.replace(token, projects.projects[projectEntry].description));
-            if (projects.projects[projectEntry].images.length > 0) {
-                for (var imageEntry in projects.projects[projectEntry].images) {
-                    $('.project-images:last').append(HTMLprojectImage.replace(token, projects.projects[projectEntry].images[imageEntry]));
-                }
-            }
-        }
-    }
-}
-
-education.display = function () {
-    if (education.schools.length > 0) {
-        for (var school in education.schools) {
-            $('#education').append(HTMLschoolStart);
-            $('.education-entry:last')
-                .append(HTMLschoolName.replace(token, education.schools[school].name))
-                .append(HTMLschoolDegree.replace(token, education.schools[school].degree))
-                .append(HTMLschoolDates.replace(token, education.schools[school].dates))
-                .append(HTMLschoolLocation.replace(token, education.schools[school].location));
-            if (education.schools[school].majors.length > 0) {
-                for (var major in education.schools[school].majors) {
-                    $('.education-entry:last').append(HTMLschoolMajor.replace(token, education.schools[school].majors[major]));
-                }
-            }
-        }
-    }
-    if (education.onlineCourses.length > 0) {
-        $('#education')
-            .append(HTMLonlineClasses)
-            .append(HTMLonlineStart);
-        for (var onlineEntry in education.onlineCourses) {
-            $('.education-entry:last')
-                .append(HTMLonlineTitle.replace(token, education.onlineCourses[onlineEntry].title))
-                .append(HTMLonlineSchool.replace(token, education.onlineCourses[onlineEntry].provider))
-                .append(HTMLonlineDates.replace(token, education.onlineCourses[onlineEntry].dates))
-                .append(HTMLonlineURL.replace(token, education.onlineCourses[onlineEntry].url));
-        }
-    }
-}
 
 function inName(name) {
     var nameTokens = name.trim().split(" ");
     nameTokens[1] = nameTokens[1].toUpperCase();
     return nameTokens[0] + ' ' + nameTokens[1];
 }
+
 $('#main').append(internationalizeButton);
 
 bio.display();
